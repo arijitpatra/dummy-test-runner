@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TileComponent } from "./components/TileComponent";
+import { DescriptionAndStatusComponent } from "./components/DescriptionAndStatusComponent";
 import "./App.scss";
 
 const makeDummyTest = () => {
@@ -122,18 +123,21 @@ function App() {
         />
       </div>
 
-      {isAllDone && <h2>All tests are done!</h2>}
-      {testResult.map((item) => {
-        return (
-          <div key={item.description}>
-            <p>{item.description}</p>
-            <p>{item.status}</p>
-          </div>
-        );
-      })}
-      <button onClick={handleClick} disabled={isButtonDisabled}>
-        Run Tests
-      </button>
+      <section style={{ textAlign: "center" }}>
+        {testResult.map((item) => {
+          return (
+            <DescriptionAndStatusComponent
+              key={item.description}
+              description={item.description}
+              status={item.status}
+            />
+          );
+        })}
+        <button onClick={handleClick} disabled={isButtonDisabled}>
+          Run Tests
+        </button>
+        {isAllDone && <h2>Done!</h2>}
+      </section>
     </div>
   );
 }
