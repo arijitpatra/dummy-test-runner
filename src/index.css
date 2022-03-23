@@ -16,6 +16,14 @@ code {
   display: flex;
 }
 
+.j-c-c {
+  justify-content: center;
+}
+
+.a-i-c {
+  align-items: center;
+}
+
 .f-f-w {
   flex-flow: wrap;
 }

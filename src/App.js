@@ -83,20 +83,23 @@ function App() {
         }
         return j;
       });
-      setTestResult(updatedTestResult);
       setCountRunning((countRunning) => countRunning + 1);
+      setTestResult(updatedTestResult);
     });
   };
 
   useEffect(() => {
-    if (countRunning > 0) {
-      setCountRunning(countRunning - (countPassed + countFailed));
-    }
+    setCountRunning((countRunning) => {
+      if (countRunning > 0) {
+        return countRunning - (countPassed + countFailed);
+      }
+      return countRunning;
+    });
 
     if (countPassed + countFailed === tests.length) {
       setIsAllDone(true);
     }
-  }, [countPassed, countFailed, countRunning]);
+  }, [countPassed, countFailed]);
 
   return (
     <div className="App">
@@ -136,7 +139,17 @@ function App() {
         <button onClick={handleClick} disabled={isButtonDisabled}>
           Run Tests
         </button>
-        {isAllDone && <h2>Done!</h2>}
+        {isAllDone && (
+          <h2 className="d-f j-c-c a-i-c">
+            <img
+              width="32"
+              src="./checkmark.png"
+              alt="checkmark"
+              style={{ marginRight: "0.5rem" }}
+            />
+            Done!
+          </h2>
+        )}
       </section>
     </div>
   );
