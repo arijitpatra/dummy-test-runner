@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import { TileComponent } from "./components/TileComponent";
+import "./App.scss";
 
 const makeDummyTest = () => {
   const delay = 7000 + Math.random() * 7000;
@@ -98,15 +99,29 @@ function App() {
 
   return (
     <div className="App">
-      <h2>
-        Passed: {countPassed} / {testResult.length}
-      </h2>
-      <h2>
-        Failed: {countFailed} / {testResult.length}
-      </h2>
-      <h2>
-        Running: {countRunning} / {testResult.length}
-      </h2>
+      <div className="header d-f f-f-w">
+        <TileComponent
+          count={countPassed}
+          total={tests.length}
+          label="Passed"
+        />
+        <TileComponent
+          count={countFailed}
+          total={tests.length}
+          label="Failed"
+        />
+        <TileComponent
+          count={countRunning}
+          total={tests.length}
+          label="Running"
+        />
+        <TileComponent
+          count={countPassed + countFailed}
+          total={tests.length}
+          label={isAllDone ? "All tests are done!" : "Done"}
+        />
+      </div>
+
       {isAllDone && <h2>All tests are done!</h2>}
       {testResult.map((item) => {
         return (
