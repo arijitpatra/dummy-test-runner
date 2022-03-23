@@ -46,19 +46,8 @@ function App() {
   const [countRunning, setCountRunning] = useState(0);
   const [countPassed, setCountPassed] = useState(0);
   const [countFailed, setCountFailed] = useState(0);
-
-  //    All six tests should be run simultaneously. Using whatever design you like, make sure
-  // that the user interface communicates the following:
-
-  // - Status of each test (Not Started, Running, Passed, or Failed)
-  // - Number of tests that have passed so far
-  // - Number of tests that have failed so far
-  // - Number of tests that are still running
-  // - An indication (such as "DONE!") when all tests are finished
-
-  // Initially, each test should be in the “Not Started” state, waiting for the user to
-  // press a button to run them. Once tests start running, the UI should update in
-  // real-time without needing further user interaction.
+  const [isAllDone, setIsAllDone] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   // const handleCallBack = (something) => {
   //   console.log(something);
@@ -66,6 +55,7 @@ function App() {
   // };
 
   const handleClick = () => {
+    setIsButtonDisabled(true);
     // const y = makeDummyTest();
     // const z = (something) => console.log(something);
     // y(z);
@@ -91,14 +81,20 @@ function App() {
         }
         return j;
       });
-      setCountRunning((countRunning) => countRunning + 1);
       setTestResult(updatedTestResult);
+      setCountRunning((countRunning) => countRunning + 1);
     });
   };
 
-  // useEffect(() => {
-  //   console.log(testResult);
-  // }, [testResult]);
+  useEffect(() => {
+    if (countRunning > 0) {
+      setCountRunning(countRunning - (countPassed + countFailed));
+    }
+
+    if (countPassed + countFailed === tests.length) {
+      setIsAllDone(true);
+    }
+  }, [countPassed, countFailed, countRunning]);
 
   return (
     <div className="App">
@@ -111,6 +107,7 @@ function App() {
       <h2>
         Running: {countRunning} / {testResult.length}
       </h2>
+      {isAllDone && <h2>All tests are done!</h2>}
       {testResult.map((item) => {
         return (
           <div key={item.description}>
@@ -119,7 +116,9 @@ function App() {
           </div>
         );
       })}
-      <button onClick={handleClick}>Run Tests</button>
+      <button onClick={handleClick} disabled={isButtonDisabled}>
+        Run Tests
+      </button>
     </div>
   );
 }
