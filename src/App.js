@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { TileComponent } from "./components/TileComponent";
 import { DescriptionAndStatusComponent } from "./components/DescriptionAndStatusComponent";
+import { ButtonComponent } from "./components/ButtonComponent";
+import { HeaderComponent } from "./components/HeaderComponent";
 import "./App.scss";
 
 const makeDummyTest = () => {
@@ -40,8 +41,6 @@ const testsResultDefault = tests.reduce((acc, curr) => {
     },
   ];
 }, []);
-
-// console.log(testsResultDefault);
 
 function App() {
   const [testResult, setTestResult] = useState(testsResultDefault);
@@ -104,26 +103,13 @@ function App() {
   return (
     <div className="App">
       <div className="header d-f f-f-w">
-        <TileComponent
-          count={countPassed}
+        <HeaderComponent
+          countPassed={countPassed}
+          countFailed={countFailed}
+          countRunning={countRunning}
           total={tests.length}
-          label="Passed"
-        />
-        <TileComponent
-          count={countFailed}
-          total={tests.length}
-          label="Failed"
-        />
-        <TileComponent
-          count={countRunning}
-          total={tests.length}
-          label="Running"
-        />
-        <TileComponent
-          count={countPassed + countFailed}
-          total={tests.length}
-          label={isAllDone ? "All tests are done!" : "Done"}
-        />
+          isAllDone={isAllDone}
+        ></HeaderComponent>
       </div>
 
       <section style={{ textAlign: "center" }}>
@@ -136,9 +122,9 @@ function App() {
             />
           );
         })}
-        <button onClick={handleClick} disabled={isButtonDisabled}>
-          Run Tests
-        </button>
+
+        <ButtonComponent onClick={handleClick} isDisabled={isButtonDisabled} />
+
         {isAllDone && (
           <h2 className="d-f j-c-c a-i-c">
             <img
