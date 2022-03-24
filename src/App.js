@@ -123,7 +123,11 @@ function App() {
           );
         })}
 
-        <ButtonComponent onClick={handleClick} isDisabled={isButtonDisabled} />
+        <ButtonComponent
+          onClick={handleClick}
+          isDisabled={isButtonDisabled}
+          label="Run Tests"
+        />
 
         {isAllDone && (
           <h2 className="d-f j-c-c a-i-c">

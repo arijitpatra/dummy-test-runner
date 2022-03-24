@@ -1,9 +1,13 @@
 import "./ButtonComponent.scss";
 
-export const ButtonComponent = ({ onClick, isDisabled = false }) => {
+export const ButtonComponent = ({ onClick, isDisabled = false, label }) => {
   return (
-    <button onClick={onClick} disabled={isDisabled}>
-      Run Tests
+    <button
+      onClick={onClick}
+      disabled={isDisabled}
+      data-testid="buttonComponent"
+    >
+      {label}
     </button>
   );
 };
