@@ -1,70 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { DescriptionAndStatusComponent } from "./components/DescriptionAndStatusComponent";
 import { ButtonComponent } from "./components/ButtonComponent";
 import { HeaderComponent } from "./components/HeaderComponent";
+import { tests, testsResultInitialData } from "./utils/utils";
 import "./App.scss";
 
-const makeDummyTest = () => {
-  const delay = 7000 + Math.random() * 7000;
-  const testPassed = Math.random() > 0.5;
-
-  return (callback) => {
-    setTimeout(() => callback(testPassed), delay);
-  };
-};
-
-const tests = [
-  { description: "uploads go in both directions", run: makeDummyTest() },
-  { description: "PDFs are adequately waterproof", run: makeDummyTest() },
-  {
-    description: "videos are heated to 12,000,000 Kelvin",
-    run: makeDummyTest(),
-  },
-  { description: "subpixels can go rock climbing", run: makeDummyTest() },
-  {
-    description: "images are squarer than traffic cones",
-    run: makeDummyTest(),
-  },
-  { description: "metaproperties don't go too meta", run: makeDummyTest() },
-];
-
-const testsResultDefault = tests.reduce((acc, curr) => {
-  return [
-    ...acc,
-    {
-      description: curr.description,
-      status: "Not Started",
-      passed: false,
-      failed: false,
-      running: false,
-      default: "NA",
-    },
-  ];
-}, []);
+const DoneComponent = lazy(() =>
+  import("./components/DoneComponent/DoneComponent.js")
+);
 
 function App() {
-  const [testResult, setTestResult] = useState(testsResultDefault);
+  const [testResult, setTestResult] = useState(testsResultInitialData);
   const [countRunning, setCountRunning] = useState(0);
   const [countPassed, setCountPassed] = useState(0);
   const [countFailed, setCountFailed] = useState(0);
   const [isAllDone, setIsAllDone] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  // const handleCallBack = (something) => {
-  //   console.log(something);
-  //   return something;
-  // };
-
   const handleClick = () => {
     setIsButtonDisabled(true);
-    // const y = makeDummyTest();
-    // const z = (something) => console.log(something);
-    // y(z);
-    // setCountRunning(tests.length);
     tests.forEach((i) => {
       const x = i.run;
+
+      // we created a Promise and resolve is our callback
       const y = new Promise((resolve) => x(resolve));
-      //const z = x(handleCallBack);
       const updatedTestResult = testResult.map((j) => {
         if (j.description === i.description) {
           j.status = "Running";
@@ -88,6 +47,7 @@ function App() {
   };
 
   useEffect(() => {
+    // update count of tests that are running
     setCountRunning((countRunning) => {
       if (countRunning > 0) {
         return countRunning - (countPassed + countFailed);
@@ -95,6 +55,7 @@ function App() {
       return countRunning;
     });
 
+    // logic to check if all tests are done
     if (countPassed + countFailed === tests.length) {
       setIsAllDone(true);
     }
@@ -109,7 +70,7 @@ function App() {
           countRunning={countRunning}
           total={tests.length}
           isAllDone={isAllDone}
-        ></HeaderComponent>
+        />
       </div>
 
       <section style={{ textAlign: "center" }}>
@@ -129,17 +90,9 @@ function App() {
           label="Run Tests"
         />
 
-        {isAllDone && (
-          <h2 className="d-f j-c-c a-i-c">
-            <img
-              width="32"
-              src="./checkmark.png"
-              alt="checkmark"
-              style={{ marginRight: "0.5rem" }}
-            />
-            Done!
-          </h2>
-        )}
+        <Suspense fallback={<div>Loading...</div>}>
+          {isAllDone && <DoneComponent />}
+        </Suspense>
       </section>
     </div>
   );
