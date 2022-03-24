@@ -1,4 +1,4 @@
-The concept of JavaScript promise was used for the assignemnt.
+The concept of JavaScript promise was used for the assignment.
 
 
 
