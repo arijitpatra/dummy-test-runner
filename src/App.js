@@ -11,7 +11,7 @@ const DoneComponent = lazy(() =>
 );
 
 function App() {
-  const [testResult, setTestResult] = useState(testsResultInitialData);
+  const [testResults, setTestResults] = useState(testsResultInitialData);
   const [countRunning, setCountRunning] = useState(0);
   const [countPassed, setCountPassed] = useState(0);
   const [countFailed, setCountFailed] = useState(0);
@@ -21,30 +21,33 @@ function App() {
   // run the tests when the button is clicked
   const handleClick = () => {
     setIsButtonDisabled(true);
-    tests.forEach((i) => {
-      const x = i.run;
+    tests.forEach((test) => {
+      // this will call makeDummyTest and return a function
+      const fn = test.run;
 
       // we created a Promise and resolve is our callback
-      const y = new Promise((resolve) => x(resolve));
-      const updatedTestResult = testResult.map((j) => {
-        if (j.description === i.description) {
-          j.status = "Running";
-          j.running = true;
-          y.then((result) => {
-            j.default = result;
-            j.status = result ? "Passed" : "Failed";
-            j.passed = result;
-            j.failed = !result;
-            j.running = false;
-            setTestResult([...testResult]);
+      const promiseForDummy = new Promise((resolve) => fn(resolve));
+
+      // updating the inital data and updating some values here
+      const updatedTestResults = testResults.map((item) => {
+        if (item.description === test.description) {
+          item.status = "Running";
+          item.running = true;
+          promiseForDummy.then((result) => {
+            item.default = result;
+            item.status = result ? "Passed" : "Failed";
+            item.passed = result;
+            item.failed = !result;
+            item.running = false;
+            setTestResults([...testResults]);
             setCountPassed((countPassed) => countPassed + (result ? 1 : 0));
             setCountFailed((countFailed) => countFailed + (!result ? 1 : 0));
           });
         }
-        return j;
+        return item;
       });
       setCountRunning((countRunning) => countRunning + 1);
-      setTestResult(updatedTestResult);
+      setTestResults(updatedTestResults);
     });
   };
 
@@ -76,7 +79,7 @@ function App() {
       </div>
 
       <section className="ta-c">
-        {testResult.map((item) => {
+        {testResults.map((item) => {
           return (
             <DescriptionAndStatusComponent
               key={item.description}
