@@ -33,6 +33,8 @@ function App() {
         if (item.description === test.description) {
           item.status = "Running";
           item.running = true;
+
+          // when the promise resolves, update the status and the counts for the test
           promiseForDummy.then((result) => {
             item.default = result;
             item.status = result ? "Passed" : "Failed";
