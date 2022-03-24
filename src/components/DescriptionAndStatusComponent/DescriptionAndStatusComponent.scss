@@ -1,8 +1,10 @@
+@import "../../styles/variables.scss";
+
 .descriptionAndStatusComponent {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: $white;
   margin: 1.5rem 1rem;
   border-radius: 7px;
   padding: 0 30rem;

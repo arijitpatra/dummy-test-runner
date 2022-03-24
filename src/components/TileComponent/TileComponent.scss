@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .tile-component {
   display: flex;
   flex-direction: column;
@@ -5,15 +7,12 @@
   padding: 2.5rem 5.5rem 1.5rem 1.5rem;
   flex: 1 1;
   border-radius: 7px;
-  background: white;
+  background: $white;
   margin: 1.5rem 1rem;
-  box-shadow: 0 0 30px #e3e3e3;
+  box-shadow: 0 0 30px $tile-shadow;
 
   .counts {
     font-size: 2rem;
     font-weight: bold;
-  }
-  .label {
-    color: gray;
   }
 }

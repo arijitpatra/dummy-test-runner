@@ -5,6 +5,7 @@ import { HeaderComponent } from "./components/HeaderComponent";
 import { tests, testsResultInitialData } from "./utils/utils";
 import "./App.scss";
 
+// lazily loading the component here
 const DoneComponent = lazy(() =>
   import("./components/DoneComponent/DoneComponent.js")
 );
@@ -17,6 +18,7 @@ function App() {
   const [isAllDone, setIsAllDone] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
+  // run the tests when the button is clicked
   const handleClick = () => {
     setIsButtonDisabled(true);
     tests.forEach((i) => {
@@ -73,7 +75,7 @@ function App() {
         />
       </div>
 
-      <section style={{ textAlign: "center" }}>
+      <section className="ta-c">
         {testResult.map((item) => {
           return (
             <DescriptionAndStatusComponent

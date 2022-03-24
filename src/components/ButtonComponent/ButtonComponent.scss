@@ -1,25 +1,27 @@
+@import "../../styles/variables.scss";
+
 button {
-  border: 3px solid #31393f;
+  border: 3px solid $black;
   padding: 1rem;
-  font-family: "Montserrat";
+  font-family: $font-family;
   font-weight: 800;
-  background: #31393f;
+  background: $black;
   border-radius: 7px;
-  color: white;
+  color: $white;
   letter-spacing: 3px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 
   &:disabled {
-    background: #31393f7a;
-    border-color: #31393f7a;
-    color: #ffffff73;
+    background: $semi-transparent-black;
+    border-color: $semi-transparent-black;
+    color: $semi-transparent-light-gray;
     cursor: not-allowed;
   }
 
   &:hover {
     transform: scale(1.1);
     transition: all 0.2s ease-in-out;
-    box-shadow: 0 0 11px #a1a1a1;
+    box-shadow: 0 0 11px $button-shadow;
   }
 }

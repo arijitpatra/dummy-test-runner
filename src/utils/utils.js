@@ -22,6 +22,7 @@ export const tests = [
   { description: "metaproperties don't go too meta", run: makeDummyTest() },
 ];
 
+// creating a store which will hold the values of each of the tests progress, default will become true or false when the promise resolves
 export const testsResultInitialData = tests.reduce((acc, curr) => {
   return [
     ...acc,

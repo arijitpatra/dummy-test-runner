@@ -1,5 +1,3 @@
-import "./DoneComponent.scss";
-
 const DoneComponent = () => {
   return (
     <h2 className="d-f j-c-c a-i-c">

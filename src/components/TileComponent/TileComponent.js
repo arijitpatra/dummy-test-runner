@@ -7,17 +7,16 @@ export const TileComponent = ({ count, total, label }) => {
         {count} / {total}
       </div>
       <h3
-        className="label"
-        style={
+        className={
           label === "Passed"
-            ? { color: "#46c53e" }
+            ? "passed"
             : label === "Failed"
-            ? { color: "#e94b4b" }
+            ? "failed"
             : label === "All tests are done!"
-            ? { color: "#2099f3" }
+            ? "notStarted"
             : label === "Running"
-            ? { color: "#f5b31f" }
-            : {}
+            ? "running"
+            : "defaultStatus"
         }
       >
         {label}

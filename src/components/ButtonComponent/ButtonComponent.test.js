@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { ButtonComponent } from "./ButtonComponent";
 
-it("should render", () => {
+it("should render Button:", () => {
   render(
     <ButtonComponent onClick={() => {}} isDisabled={false} label="Run Tests" />
   );
@@ -9,14 +9,14 @@ it("should render", () => {
   expect(btn).toBeInTheDocument();
 });
 
-it("should render the pased label", () => {
+it("should render the pased label:", () => {
   render(
     <ButtonComponent onClick={() => {}} isDisabled={false} label="Run Tests" />
   );
   expect(screen.getByText(/Run Tests/)).toBeInTheDocument();
 });
 
-it("should call click handler function only once on button click", () => {
+it("should call click handler function only once on button click:", () => {
   const mockOnClick = jest.fn();
   render(
     <ButtonComponent
@@ -30,7 +30,7 @@ it("should call click handler function only once on button click", () => {
   expect(mockOnClick).toHaveBeenCalledTimes(1);
 });
 
-it("should render a disabled button", () => {
+it("should render a disabled button:", () => {
   const mockOnClick = jest.fn();
   render(
     <ButtonComponent

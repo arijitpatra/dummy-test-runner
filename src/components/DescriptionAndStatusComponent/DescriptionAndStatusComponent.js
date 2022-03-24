@@ -5,15 +5,15 @@ export const DescriptionAndStatusComponent = ({ description, status }) => {
     <section className="descriptionAndStatusComponent">
       <h4>{description}</h4>
       <h5
-        style={
+        className={
           status === "Passed"
-            ? { color: "#46c53e" }
+            ? "passed"
             : status === "Failed"
-            ? { color: "#e94b4b" }
+            ? "failed"
             : status === "Not Started"
-            ? { color: "#2099f3" }
+            ? "notStarted"
             : status === "Running"
-            ? { color: "#f5b31f" }
+            ? "running"
             : {}
         }
       >

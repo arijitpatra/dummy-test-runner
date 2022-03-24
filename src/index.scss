@@ -1,0 +1,50 @@
+@import "./styles/variables.scss";
+
+body {
+  margin: 0;
+  font-family: $font-family, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $black;
+  background: $light-gray;
+}
+
+.defaultStatus {
+  color: $gray;
+}
+
+.passed {
+  color: $green;
+}
+
+.failed {
+  color: $red;
+}
+
+.notStarted {
+  color: $blue;
+}
+
+.running {
+  color: $yellow;
+}
+
+.d-f {
+  display: flex;
+}
+
+.j-c-c {
+  justify-content: center;
+}
+
+.a-i-c {
+  align-items: center;
+}
+
+.f-f-w {
+  flex-flow: wrap;
+}
+
+.ta-c {
+  text-align: center;
+}
